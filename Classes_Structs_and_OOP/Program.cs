@@ -10,7 +10,7 @@ namespace Classes_Structs_and_OOP
 
         public Character()
         {
-            name = "Not assigned";
+            Reset();
         }
 
         public Character(string name)
@@ -18,7 +18,7 @@ namespace Classes_Structs_and_OOP
             this.name = name;
         }
 
-        public void PrintStatsInfo()
+        public virtual void PrintStatsInfo()
         {
             Console.WriteLine("Hero: " + this.name + " - " + this.exp + " EXP");
         }
@@ -27,6 +27,24 @@ namespace Classes_Structs_and_OOP
         {
             this.name = "Not assigned";
             this.exp = 0;
+        }
+
+
+    }
+
+    //child class of character
+    public class Paladin : Character
+    {
+        public Weapon weapon;
+        public Paladin(string name, Weapon weapon) : base(name)
+        {
+            this.weapon = weapon;
+        }
+
+        // ex: polymorphism overides parent class of PrintStatsInfo
+        public override void PrintStatsInfo()
+        {
+            Console.WriteLine("Hail " + this.name + " - take up your " + this.weapon.name + "!");
         }
     }
 
@@ -80,11 +98,24 @@ namespace Classes_Structs_and_OOP
             huntingBow.PrintWeaponStats();
             warBow.PrintWeaponStats();
 
+            //changes hunting bow into war bow and increase in dmg
             warBow.name = "War Bow";
             warBow.damage = 155;
 
             huntingBow.PrintWeaponStats();
             warBow.PrintWeaponStats();
+
+            //Experimenting with Inheritance
+            Paladin knight = new Paladin("Sir Arthur", huntingBow);
+            knight.PrintStatsInfo();
+
+            //Testing external files
+            Adventurer mike = new Adventurer("Mike");
+            mike.PrintStatsInfo();
+
+            //testing dude new cs file
+            Dude dave = new Dude("Dave");
+            dave.PrintStatsInfo();
         }
     }
 }
